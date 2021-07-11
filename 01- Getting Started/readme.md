@@ -72,8 +72,8 @@ In another words, the app variable is defined as an instance of class Flask impo
 __init__.py script, which makes it a member of the blog package.
 
 2. The __name__ variable passed to the Flask class is a Python predefined variable, which is set to the name of the module
-(e.g. name of your python file abc in case of abc.py) in which it is used if file gets executed directly 
-e.g. __name__=abc if we execute python abc.py. However, __name__ will take the name of caller module.
+e.g. __main__in which it is used if file gets executed directly e.g. vi abc.py : print(__name__)= __main__ if we execute python 
+abc.py. However, __name__ will take the name of caller module, if we don't run script directly.
 
 3. The application then imports the routes module.
 
