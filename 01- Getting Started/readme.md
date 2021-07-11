@@ -31,7 +31,7 @@ Cache entry deserialization failed, entry ignored
 Collecting pip
   Using cached https://files.pythonhosted.org/packages/47/ca/f0d790b6e18b3a6f3bd5e80c2ee4edbb5807286c21cdd0862ca933f751dd/pip-21.1.3-py3-none-any.whl
 Installing collected packages: pip
-  Found existing installation: pip 9.0.1
+  Found existing installation: pip 9.0.
     Uninstalling pip-9.0.1:
       Successfully uninstalled pip-9.0.1
 Successfully installed pip-21.1.3
