@@ -1,4 +1,4 @@
-Setup Environment
+**Setup Environment**
 
 1. Install Python and check for version
 Flask-Blog >python --version
