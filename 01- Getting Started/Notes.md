@@ -1,13 +1,13 @@
 **Setup Environment**
 
-1. Install Python and check for version<br />
+**1. Install Python and check for version<br />**
 Flask-Blog >python --version<br />
 Python 3.6.4rc1<br />
 
-2. Create Virtual Environment : python -m venv env (I have used "env" as name of my virtual environment, you can use any name).<br />
+**2. Create Virtual Environment : python -m venv env (I have used "env" as name of my virtual environment, you can use any name).<br />**
 Flask-Blog >python -m venv env<br />
 
-3. Activate your virtual environment : env\Scripts\activate [Windows]<br />
+**3. Activate your virtual environment : env\Scripts\activate [Windows]<br />**
 Flask-Blog >env\Scripts\activate<br />
 (env) Flask-Blog >python -m pip install --upgrade pip<br />
 Cache entry deserialization failed, entry ignored<br />
@@ -19,7 +19,7 @@ Installing collected packages: pip<br />
       Successfully uninstalled pip-9.0.1<br />
 Successfully installed pip-21.1.3<br />
 
-4. Update PIP in virtual environment : python -m pip install --upgrade pip<br />
+**4. Update PIP in virtual environment : python -m pip install --upgrade pip<br />**
 (env) Flask-Blog >python -m pip install --upgrade pip<br />
 Cache entry deserialization failed, entry ignored<br />
 Collecting pip<br />
@@ -30,7 +30,7 @@ Installing collected packages: pip<br />
       Successfully uninstalled pip-9.0.1<br />
 Successfully installed pip-21.1.3<br />
 
-5. Install Flask : python -m pip install flask<br />
+**5. Install Flask : python -m pip install flask<br />**
 (env) Flask-Blog >python -m pip install flask<br />
 Collecting flask<br />
 .........<br />
