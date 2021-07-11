@@ -34,7 +34,7 @@ Successfully installed pip-21.1.3<br />
 (env) Flask-Blog >python -m pip install flask<br />
 Collecting flask<br />
 .........<br />
-Installing collected packages: zipp, typing-extensions, MarkupSafe, importlib-metadata, dataclasses, colorama, Werkzeug, Jinja2, itsdangerous, click, flask<br />
-Successfully installed Jinja2-3.0.1 MarkupSafe-2.0.1 Werkzeug-2.0.1 click-8.0.1 colorama-0.4.4 dataclasses-0.8 flask-2.0.1 importlib-metadata-4.6.1<br />
-itsdangerous-2.0.1 typing-extensions-3.10.0.0 zipp-3.5.0<br />
+Installing collected packages: zipp, typing-extensions, MarkupSafe, importlib-metadata, dataclasses, colorama, Werkzeug, Jinja2, itsdangerous, click, flask
+Successfully installed Jinja2-3.0.1 MarkupSafe-2.0.1 Werkzeug-2.0.1 click-8.0.1 colorama-0.4.4 dataclasses-0.8 flask-2.0.1 importlib-metadata-4.6.1
+itsdangerous-2.0.1 typing-extensions-3.10.0.0 zipp-3.5.0
 
