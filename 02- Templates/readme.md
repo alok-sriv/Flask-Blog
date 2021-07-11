@@ -274,7 +274,7 @@ __Ctrl+Shift+R__ </br>
 
 Let's Add Navbar in your blog, I used https://getbootstrap.com/docs/4.0/components/navbar/ for code, but i modified based</br>
 on my requirement. I will use sub-templating method for cleaner code. 
-> mkdir -p blog/templates/includes
+> mkdir -p blog/templates/includes</br>
 ***\_navbar.html***
 ```html
 <header class="site-header">
@@ -301,11 +301,11 @@ on my requirement. I will use sub-templating method for cleaner code.
 ```
 
 I used main.css for better colors, and place that file in static. In flask we put files such as css, images in static folder.</br>
-> mkdir -p blog/static
+> mkdir -p blog/static </br>
 
-I have updated layout.html to add sidebar as well. </br>
+I have updated layout.html to add sidebar and include main.css. </br>
 
-I have updated home.html as well with some better html code </br>
+I have updated home.html as well with some better html code for posts </br>
 
 Now, you will see better site for our blog.
 
