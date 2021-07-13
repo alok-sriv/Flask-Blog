@@ -388,7 +388,6 @@ Now, I will implement similar concepts for register page by creating register.ht
 ```
 **routes.py**
 ```python
-
 #Flask-Blog > blog > routes.py
 from flask import render_template, flash, redirect, url_for
 from blog import app
