@@ -83,7 +83,7 @@ The optional validators argument that you see in some of the fields is used to a
 
 **Login and Registration Templates**
 
-The next step is to add the form to an HTML template so that it can be rendered on a web page. The good news is that the fields that are defined in the RegistrationForm and LoginForm class know how to render themselves as HTML, so this task is fairly simple.
+The next step is to add the form to an HTML template so that it can be rendered on a web page. The good news is that the fields that are defined in the RegistrationForm and LoginForm class know how to render themselves as HTML, so this task is fairly simple.</br>
 **login.html**
 ```html
 {% extends "layout.html" %}
