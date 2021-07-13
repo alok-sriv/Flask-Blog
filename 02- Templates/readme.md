@@ -303,9 +303,11 @@ on my requirement. I will use sub-templating method for cleaner code.
 I used main.css for better colors, and place that file in static. In flask we put files such as css, images in static folder.</br>
 > mkdir -p blog/static </br>
 
-I have updated layout.html to add sidebar and include main.css. </br>
+I have updated layout.html to add sidebar and include main.css.</br>
 
 I have updated home.html as well with some better html code for posts </br>
+
+I have not explained all these html and css code as we will focus on Flask. Refer code in GitHub repo for more details.</br>
 
 Now, you will see better site for our blog.
 
