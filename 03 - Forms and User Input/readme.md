@@ -343,7 +343,7 @@ def login():
     </nav>
   </header>
 ```
-Now, I will implement similar concepts for register page by creating register.html and adding register function view in routes.html. I will also update ```html <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>``` in \_navbar.html
+Now, I will implement similar concepts for register page by creating register.html and adding register function view in routes.html. I will also update ```<a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>``` in \_navbar.html
 
 **register.html**
 ```html
