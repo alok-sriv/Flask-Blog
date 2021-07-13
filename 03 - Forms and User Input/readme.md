@@ -382,6 +382,7 @@ Now, I will implement similar concepts for register page by creating register.ht
             {% endfor %}
         </p>        
         <p>{{ form.submit() }}</p>
+        <p>Already Have An Account? <a href="{{ url_for('login') }}">Sign In</a></p>
     </form>
 {% endblock %}
 ```
