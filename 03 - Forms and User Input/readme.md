@@ -118,8 +118,8 @@ The next step is to add the form to an HTML template so that it can be rendered 
   
 **Form Views**</br>
 The final step before you can see this form in the browser is to code a new view function in the application that renders the template from the previous section.
-So let's write a new view function mapped to the /login URL that creates a form, and passes it to the template for rendering. This view function can also go in the app/routes.py module with the previous one:
-  
+So let's write a new view function mapped to the /login URL that creates a form, and passes it to the template for rendering. This view function can also go in the app/routes.py module with the previous one:</br>
+**routes.py**
 ```python
 #Flask-Blog > blog > routes.py
 from flask import render_template
@@ -139,3 +139,209 @@ def login():
 What I did here is import the LoginForm class from forms.py, instantiated an object from it, and sent it down to the template. The form=form syntax may look odd, but is simply passing the form object created in the line above (and shown on the right side) to the template with the name form (shown on the left). This is all that is required to get form fields rendered.
 
 At this point you can run the application and see the form in your web browser. With the application running, type http://localhost:5000/ in the browser's address bar, and then click on the "Login" link in the top navigation bar to see the new login form.
+
+**Receiving Form Data**</br>
+If you try to press the submit button the browser is going to display a "Method Not Allowed" error. This is because the login view function from the previous section does one half of the job so far. It can display the form on a web page, but it has no logic to process data submitted by the user yet. This is another area where Flask-WTF makes the job really easy. Here is an updated version of the view function that accepts and validates the data submitted by the user:
+
+```python
+#Flask-Blog > blog > routes.py
+from flask import render_template, flash, redirect
+from blog import app
+from blog.forms import LoginForm
+..........
+..........
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect('/home')
+        else:
+            flash('Login Unsuccessful. Please check username and password', 'danger')
+    return render_template('login.html', title='Login', form=form)
+```
+
+**Explanation**
+1. The first new thing in this version is the methods argument in the route decorator. This tells Flask that this view function accepts GET and POST requests, overriding the default, which is to accept only GET requests. The HTTP protocol states that GET requests are those that return information to the client (the web browser in this case). All the requests in the application so far are of this type. POST requests are typically used when the browser submits form data to the server (in reality GET requests can also be used for this purpose, but it is not a recommended practice). The "Method Not Allowed" error that the browser showed you before, appears because the browser tried to send a POST request and the application was not configured to accept it. By providing the methods argument, you are telling Flask which request methods should be accepted.
+
+2. The form.validate_on_submit() method does all the form processing work. When the browser sends the GET request to receive the web page with the form, this method is going to return False, so in that case the function skips the if statement and goes directly to render the template in the last line of the function.
+
+3. When the browser sends the POST request as a result of the user pressing the submit button, form.validate_on_submit() is going to gather all the data, run all the validators attached to fields, and if everything is all right it will return True, indicating that the data is valid and can be processed by the application. But if at least one field fails validation, then the function will return False, and that will cause the form to be rendered back to the user, like in the GET request case. Later I'm going to add an error message when validation fails.
+
+4. When form.validate_on_submit() returns True, the login view function calls two new functions, imported from Flask. The flash() function is a useful way to show a message to the user. A lot of applications use this technique to let the user know if some action has been successful or not.
+
+5. I don't have readl user yet so will check this form with email =admin@blog.com and password=password.
+
+6. The second new function used in the login view function is redirect(). This function instructs the client web browser to automatically navigate to a different page, given as an argument. This view function uses it to redirect the user to the home page of the application.
+
+7. When you call the flash() function, Flask stores the message, but flashed messages will not magically appear in web pages. The templates of the application need to render these flashed messages in a way that works for the site layout. I'm going to add these messages to the includes\/\_messages.html and refer that in layout template, so that all the templates inherit this functionality. This is the updated templats:</br>
+
+**\templates\includes\_messages.html**
+```html
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+```
+An interesting property of these flashed messages is that once they are requested once through the get_flashed_messages function they are removed from the message list, so they appear only once after the flash() function is called.</br>
+
+**\templates\layout.html**
+```html
+    <body>
+        {% include 'includes/_navbar.html' %}
+        <main role="main" class="container">
+            <div class="row">
+              <div class="col-md-8">
+                {% include 'includes/_messages.html' %}
+                {% block content %}{% endblock %}
+              </div>
+              <div class="col-md-4">
+                <div class="content-section">
+                  <h3>Our Sidebar</h3>
+                  <p class='text-muted'>You can put any information here you'd like.
+                    <ul class="list-group">
+                      <li class="list-group-item list-group-item-light">Latest Posts</li>
+                      <li class="list-group-item list-group-item-light">Announcements</li>
+                      <li class="list-group-item list-group-item-light">Calendars</li>
+                      <li class="list-group-item list-group-item-light">etc</li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </body>
+```
+**Improving Field Validation**</br>
+The validators that are attached to form fields prevent invalid data from being accepted into the application. The way the application deals with invalid form input is by re-displaying the form, to let the user make the necessary corrections.
+
+If you tried to submit invalid data, I'm sure you noticed that while the validation mechanisms work well, there is no indication given to the user that something is wrong with the form, the user simply gets the form back. The next task is to improve the user experience by adding a meaningful error message next to each field that failed validation.
+
+In fact, the form validators generate these descriptive error messages already, so all that is missing is some additional logic in the template to render them.
+
+**login.html**
+```html
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email() }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password() }}
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.remember() }} {{ form.remember.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+```
+The only change I've made is to add for loops right after the username and password fields that render the error messages added by the validators in red color. As a general rule, any fields that have validators attached will have error messages added under form.<field_name>.errors.
+
+If you try to submit the form with an empty email or password or invalid format of email, you will now get a nice error message in red.
+
+
+**Generating Links**
+We have been using links directly in templates.One problem with writing links directly in templates and source files is that if one day you decide to reorganize your links, then you are going to have to search and replace these links in your entire application.
+
+```html
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        # ...
+        return redirect('/index')
+```
+
+To have better control over these links, Flask provides a function called url_for(), which generates URLs using its internal mapping of URLs to view functions. For example, url_for('login') returns /login, and url_for('index') return '/index. The argument to url_for() is the endpoint name, which is the name of the view function.
+
+So from now on, I'm going to use url_for() every time I need to generate an application URL. Let me update all URLs in \_navbar.html and login.html. I will correct this on other
+templates as well if i see direct links. 
+
+**routes.py**
+```python
+#Flask-Blog > blog > routes.py
+from flask import render_template, flash, redirect, url_for
+from blog import app
+from blog.forms import LoginForm
+
+# print(f"In routes.py: {__name__}") o/p: In routes.py: blog.routes
+user = {'username': 'Alok'}
+
+posts = [
+    {
+        'author': 'Alok',
+        'title': 'Blog Post 1',
+        'content': 'First post content',
+        'date_posted': 'Jul 11, 2021'
+    },
+    {
+        'author': 'Chris',
+        'title': 'Blog Post 2',
+        'content': 'Second post content',
+        'date_posted': 'Jul 12, 2021'
+    }
+]
+
+@app.route("/")
+@app.route("/home")
+def home():
+    return render_template('home.html', user=user, posts= posts)
+
+
+@app.route("/about")
+def about():
+    return render_template('about.html', title='About')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'admin@blog.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful. Please check username and password', 'danger')
+    return render_template('login.html', title='Login', form=form)
+```
+**\_navbar.html**
+```html
+<header class="site-header">
+    <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+      <div class="container">
+        <a class="navbar-brand mr-4" href="/">Flask Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggle">
+          <div class="navbar-nav mr-auto">
+            <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+            <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+          </div>
+          <!-- Navbar Right Side -->
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+            <a class="nav-item nav-link" href="#">Register</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+```
+
+
