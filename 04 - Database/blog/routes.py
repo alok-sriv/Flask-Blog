@@ -1,8 +1,9 @@
 #Flask-Blog > blog > routes.py
 from flask import render_template, flash, redirect, url_for
-from blog import app, mysql
+from blog import app, db
 from blog.forms import LoginForm, RegistrationForm
 from passlib.hash import sha256_crypt
+from blog.models import User, Post
 
 # print(f"In routes.py: {__name__}") o/p: In routes.py: blog.routes
 user = {'username': 'Alok'}
@@ -49,21 +50,9 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        username = form.username.data
-        email = form.email.data
-        password = sha256_crypt.encrypt(str(form.password.data))
-        
-        # Create cursor
-        cur = mysql.connection.cursor()
-
-        # Execute query
-        cur.execute("INSERT INTO users(username, email, password) VALUES(%s, %s, %s)", (username, email,password))
-
-        # Commit to DB
-        mysql.connection.commit()
-
-        # Close connection
-        cur.close()    
+        user = User(username = form.username.data,email=form.email.data,password=sha256_crypt.encrypt(str(form.password.data)))
+        db.session.add(user)
+        db.session.commit()
         
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('home'))
