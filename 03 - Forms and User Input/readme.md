@@ -343,5 +343,62 @@ def login():
     </nav>
   </header>
 ```
+Now, I will imlement similar logics for register.html and register function view.
 
+**register.html**
+```html
+{% extends "layout.html" %}
 
+{% block content %}
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username() }}
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email() }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>        
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password() }}
+            {% for error in form.password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.confirm_password.label }}<br>
+            {{ form.confirm_password() }}
+            {% for error in form.confirm_password.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>        
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+```
+**routes.py**
+```python
+
+#Flask-Blog > blog > routes.py
+from flask import render_template, flash, redirect, url_for
+from blog import app
+from blog.forms import LoginForm, RegistrationForm
+............
+............
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html', title='Register', form=form)
+```
