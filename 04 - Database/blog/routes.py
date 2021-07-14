@@ -1,8 +1,8 @@
 #Flask-Blog > blog > routes.py
 from flask import render_template, flash, redirect, url_for
-from blog import app, db
+from blog import app, db, bcrypt
 from blog.forms import LoginForm, RegistrationForm
-from passlib.hash import sha256_crypt
+
 from blog.models import User, Post
 
 # print(f"In routes.py: {__name__}") o/p: In routes.py: blog.routes
@@ -50,7 +50,8 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        user = User(username = form.username.data,email=form.email.data,password=sha256_crypt.encrypt(str(form.password.data)))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username = form.username.data,email=form.email.data,password=hashed_password)
         db.session.add(user)
         db.session.commit()
         
