@@ -63,6 +63,7 @@ To install Flask-SQLAlchemy in your virtual environment, make sure you have acti
 ```
 pip instal flask-sqlalchemy
 pip install pymysql # we will need this for MYSQL DB
+pip install flask_bcrypt 
 ```
 **Flask-SQLAlchemy Configuration**</br>
 
@@ -93,6 +94,7 @@ The database is going to be represented in the application by the database insta
 from flask import Flask
 from blog.config import Config
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 
 # print(f"In __init__.py: {__name__}") o/p : In __init__.py: blog
@@ -100,6 +102,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 from blog import routes, models
 ```
@@ -142,13 +145,12 @@ The \_\_repr\_\_ method tells Python how to print objects of this class, which i
 
 
 **Update Register function View**</br>
-We will use sha256_crypt to encrypt password before storing them in dataase, and for this we have already install extension "passlib". 
+We will use bcrypt to encrypt password before storing them in dataase, and for this we have already install extension "flask_bcrypt". 
 ```python
 #Flask-Blog > blog > routes.py
 from flask import render_template, flash, redirect, url_for
-from blog import app, db
+from blog import app, db, bcrypt
 from blog.forms import LoginForm, RegistrationForm
-from passlib.hash import sha256_crypt
 from blog.models import User, Post
 
 .........
@@ -158,7 +160,8 @@ def register():
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        user = User(username = form.username.data,email=form.email.data,password=sha256_crypt.encrypt(str(form.password.data)))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username = form.username.data,email=form.email.data,password=hashed_password)
         db.session.add(user)
         db.session.commit()
         
