@@ -45,9 +45,16 @@ Let's update account.html to render all required details.
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Update Account Details</h1>
-    <p><img class="rounded-circle account-img" src="{{ image_file }}"></p> 
-    <form action="" method="post">
+    <table>
+        <tr valign="top">
+            <td><img src="{{ image_file }}"></td>
+            <td>
+                <h3>User: {{ current_user.username }}</h3>
+                
+            </td>
+        </tr>
+    </table>    
+    <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
@@ -74,13 +81,14 @@ Let's update account.html to render all required details.
     </form>
 {% endblock %}
 ```
+Key thing to notice here is use of enctype="multipart/form-data", without this image update will not work.
 
-Lastly, we will update routes.py. I will not explain these functions here as most of things are self-explanatory, but before that install one more extension for PIL.
+We need to install Pillow extension that will help us in deal with image file.
 
 ```python
 pip install pillow
 ```
-
+And finally, here is the view function that ties everything together:
 **routes.py**
 ```python
 #Flask-Blog > blog > routes.py
@@ -127,5 +135,16 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',image_file=image_file, form=form)
-    
+   
 ```
+**Explanation**
+This view function processes the form in a slightly different way. 
+1. If validate_on_submit() returns True I copy the data from the form into the user object and then write the object to the database. 
+
+2. But when validate_on_submit() returns False it can be due to two different reasons. First, it can be because the browser just sent a GET request, which I need to respond by providing an initial version of the form template. It can also be when the browser sends a POST request with form data, but something in that data is invalid. 
+
+3. For this form, I need to treat these two cases separately. When the form is being requested for the first time with a GET request, I want to pre-populate the fields with the data that is stored in the database, so I need to do the reverse of what I did on the submission case and move the data stored in the user fields to the form, as this will ensure that those form fields have the current data stored for the user. 
+
+4. But in the case of a validation error I do not want to write anything to the form fields, because those were already populated by WTForms. To distinguish between these two cases, I check request.method, which will be GET for the initial request, and POST for a submission that failed validation.
+
+5. We have created and called save_picture method to save picure.
