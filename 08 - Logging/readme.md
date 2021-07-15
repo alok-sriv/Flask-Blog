@@ -70,11 +70,25 @@ Since the config.py module is where I read all the environment variables, I'm go
 import os, secrets
 from dotenv import load_dotenv
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-rootdir = os.path.dirname(basedir)
+basedir = os.path.dirname(__file__) # __file__ represents current file. and basedir will have directory of current file e.g. config.py o/p: Flask-Blog\blog
+rootdir = os.path.dirname(basedir)  # directory of basedir i.e. Flask-Blog
 load_dotenv(os.path.join(rootdir, '.env'))
 
 ...........
 ```
 
-I ww
+I will keep .env and .flaskenv files in root diretory e.g. Flask-Blog.
+
+**.env file**</br>
+```python
+MYSQL_PASSWORD=xxxxxxxx
+```
+**.flaskenv**</br>
+```python
+FLASK_APP=blog.py
+FLASK_ENV=development
+```
+
+**Start Application**</br>
+1. Enable Virtual Environment
+2. flask run
