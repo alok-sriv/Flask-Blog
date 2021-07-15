@@ -1,1 +1,131 @@
+We have already created registration and login pages. Now, we will update our code to provide options to update details of regsitered users and also to update profile photo.
 
+First we need to create a class in forms.py.
+
+**forms.py**
+
+```python
+# FileName: Flask-Blog > blog > forms.py
+from flask_login import current_user
+from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed, FileField
+from wtforms import BooleanField, PasswordField, StringField, SubmitField
+from wtforms.validators import (DataRequired, Email, EqualTo, Length,ValidationError)
+from blog.models import User
+
+..................
+
+.................
+class UpdateAccountForm(FlaskForm):
+    username = StringField('Username',validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email',validators=[DataRequired(), Email()])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Update')
+
+    def validate_username(self, username):
+        if username.data != current_user.username:
+            user = User.query.filter_by(username=username.data).first()
+            if user:
+                raise ValidationError('That username is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.query.filter_by(email=email.data).first()
+            if user:
+                raise ValidationError('That email is taken. Please choose a different one.')
+
+```
+
+In Flask we keep image files in static folder, so first create a \_profile_pics folder under /templates/static folder. I'll keep default.jpg in this folder, this image will be used as default image while any user registration.
+
+Let's update account.html to render all required details.
+
+**account.html**
+```html
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Update Account Details</h1>
+    <p><img class="rounded-circle account-img" src="{{ image_file }}"></p> 
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username() }}
+            {% for error in form.username.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email() }}
+            {% for error in form.email.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>        
+        <p>
+            {{ form.picture.label }}<br>
+            {{ form.picture() }}
+            {% for error in form.picture.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
+```
+
+Lastly, we will update routes.py. I will not explain these functions here as most of things are self-explanatory, but before that install one more extension for PIL.
+
+```python
+pip install pillow
+```
+
+**routes.py**
+```python
+#Flask-Blog > blog > routes.py
+import os
+import secrets
+from PIL import Image
+from flask import render_template, flash, redirect, url_for, request
+from blog import app, db, bcrypt
+from blog.forms import LoginForm, RegistrationForm, UpdateAccountForm
+from blog.models import User, Post
+from flask_login import current_user, login_user, logout_user, login_required
+
+..................
+..................
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
+
+@app.route("/account", methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateAccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('account.html', title='Account',image_file=image_file, form=form)
+    
+```
