@@ -56,7 +56,11 @@ Flask-Blog$python
 **User Login Form**
 The Flask-WTF extension uses Python classes to represent web forms. A form class simply defines the fields of the form as class variables.
 
-Once again having separation of concerns in mind, I'm going to use a new blog/forms.py module to store my web form classes. To begin, let's define a user registration and login forms.
+Once again having separation of concerns in mind, I'm going to use a new blog/forms.py module to store my web form classes. To begin, let's define a user registration and login forms.The Email() validator from WTForms requires an external dependency to be installed:
+```python
+$ pip install email-validator
+```
+**forms.py**
 ```forms.py
 # FileName: Flask-Blog > blog > forms.py
 from flask_wtf import FlaskForm
