@@ -122,6 +122,7 @@ def logout():
 ```
 The is_anonymous property is one of the attributes that Flask-Login adds to user objects through the UserMixin class. The current_user.is_authenticated expression is going to be True only when the user is logged in.
 
+
 **Requiring Users To Login**</br>
 Flask-Login provides a very useful feature that forces users to log in before they can view certain pages of the application. If a user who is not logged in tries to view a protected page, Flask-Login will automatically redirect the user to the login form, and only redirect back to the page the user wanted to view after the login process is complete.
 
@@ -184,4 +185,57 @@ def login():
     return render_template('login.html', title='Login', form=form)
  .......
 ```
-Right after the user is logged in by calling Flask-Login's login_user() function, the value of the next query string argument is obtained. Flask provides a request variable that contains all the information that the client sent with the request. In particular, the request.args attribute exposes the contents of the query string in a friendly dictionary format. If the login URL includes a next argument , then the user is redirected to that URL, else to home page 
+Right after the user is logged in by calling Flask-Login's login_user() function, the value of the next query string argument is obtained. Flask provides a request variable that contains all the information that the client sent with the request. In particular, the request.args attribute exposes the contents of the query string in a friendly dictionary format. If the login URL includes a next argument , then the user is redirected to that URL, else to home page.
+
+**Showing The Logged In User in Templates**
+
+So far we have been using fake user to display on home page. Well, the application has real users now, so I can now remove the fake user and start working with real users. Instead of the fake user I can use Flask-Login's current_user in the template:
+
+**home.html**
+```html
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Hello, {{ current_user.username }}!</h1>
+.........
+```
+
+And I can remove the user template argument in the view function:
+**routes.py**
+```python
+@app.route("/")
+@app.route("/home")
+def home():
+    return render_template('home.html', title='Home Page', posts= posts)
+
+```
+
+**Validation in Registration Form**
+As of now , we don't have any validation on duplicate user registration. So, if you try to use duplicate user or email, Flask will through weired error as sqlalchemy.exc.IntegrityError. Let's update forms.py
+
+**forms.py**
+```python
+# FileName: Flask-Blog > blog > forms.py
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from blog.models import User
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username',validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email',validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password',validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Sign Up')
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That username is taken. Please choose a different one.')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('That email is taken. Please choose a different one.') 
+ ............
+ ...........
+ ```
+
