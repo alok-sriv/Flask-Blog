@@ -36,7 +36,7 @@ class UpdateAccountForm(FlaskForm):
 
 ```
 
-In Flask we keep image files in static folder, so first create a \_profile_pics folder under /templates/static folder. I'll keep default.jpg in this folder, this image will be used as default image while any user registration.
+In Flask we keep image files in static folder, so first create a \_profile\_pics folder under /templates/static folder. I'll keep default.jpg in this folder, this image will be used as default image while any user registration.
 
 Let's update account.html to render all required details.
 
@@ -54,6 +54,7 @@ Let's update account.html to render all required details.
             </td>
         </tr>
     </table>    
+    <p><h2>Account Info</h2></p>
     <form action="" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <p>
@@ -83,7 +84,7 @@ Let's update account.html to render all required details.
 ```
 Key thing to notice here is use of enctype="multipart/form-data", without this image update will not work.
 
-We need to install Pillow extension that will help us in deal with image file.
+We need to install Pillow extension that will help us in deal with image resizing, that will come soon.
 
 ```python
 pip install pillow
@@ -147,4 +148,34 @@ This view function processes the form in a slightly different way.
 
 4. But in the case of a validation error I do not want to write anything to the form fields, because those were already populated by WTForms. To distinguish between these two cases, I check request.method, which will be GET for the initial request, and POST for a submission that failed validation.
 
-5. We have created and called save_picture method to save picure.
+5. We have created and called save_picture method to save picure. Let's understand that function line-by-line
+
+```python
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8) 
+    #it will randamize name of uploaded image with 8 bytes, else we will have conflict if 2 users upload image with 
+    #same name
+    f_name, f_ext = os.path.splitext(form_picture.filename) 
+    # it will help to get the image extension in f_ext e.g. png or jpg
+    picture_fn = random_hex + f_ext 
+    # cncatenate randamize name with extension
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn) 
+    #concatenate filename with path
+    #form_picture.save(picture_path) 
+    #save image at picture_path at OS Level
+    #return picture_fn 
+    #return picture_path to another function that can save in database but we should resize the image before saving 
+    #on OS because large images can slow your website
+    #Pillow extension will help us in resizing, We have already instaled Pillow using pip so, let's import
+    #from PIL import Image
+    #let's comment form_picture.save(picture_path) and return picture_fn now
+    output_size = (125, 125)  
+    #125 pixcel
+    i = Image.open(form_picture)
+    i.thumbnail(output_size) 
+    # resizing
+    i.save(picture_path) 
+    # save resized image at OS level
+
+    return picture_fn
+```
