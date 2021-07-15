@@ -252,14 +252,16 @@ In fact, the form validators generate these descriptive error messages already, 
         </p>
         <p>{{ form.remember() }} {{ form.remember.label }}</p>
         <p>{{ form.submit() }}</p>
+        <p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
     </form>
 {% endblock %}
 ```
 The only change I've made is to add for loops right after the username and password fields that render the error messages added by the validators in red color. As a general rule, any fields that have validators attached will have error messages added under form.<field_name>.errors.
-
 If you try to submit the form with an empty email or password or invalid format of email, you will now get a nice error message in red.
-
-
+I have added a link that sends new users to the registration form, right below the form:
+```html
+<p>New User? <a href="{{ url_for('register') }}">Click to Register!</a></p>
+```
 **Generating Links**
 We have been using links directly in templates.One problem with writing links directly in templates and source files is that if one day you decide to reorganize your links, then you are going to have to search and replace these links in your entire application.
 
