@@ -157,6 +157,10 @@ def save_picture(form_picture):
     #same name
     f_name, f_ext = os.path.splitext(form_picture.filename) 
     # it will help to get the image extension in f_ext e.g. png or jpg
+    #f_name will have filename but we are not going to use this anywhere in program
+    #Some editors like VScode, PyCharm, Eclipse, PyDev will raise warnings sometimes regarding these unused variables. 
+    #The warnings won’t interrupt the program execution. To suppress the warning, one can simply name the variable with an 
+    #underscore (‘_‘) alone. Python treats it as an unused variable and ignores it without giving the warning message.
     picture_fn = random_hex + f_ext 
     # cncatenate randamize name with extension
     picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn) 
