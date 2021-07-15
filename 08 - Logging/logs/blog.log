@@ -1,0 +1,98 @@
+2021-07-15 14:39:56,878 INFO:  * Restarting with stat
+2021-07-15 14:39:57,610 WARNING:  * Debugger is active!
+2021-07-15 14:39:57,615 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 14:39:57,653 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 14:40:11,282 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\__init__.py', reloading
+2021-07-15 14:40:11,342 INFO:  * Restarting with stat
+2021-07-15 14:40:12,080 INFO: Blog startup
+2021-07-15 14:40:12,160 WARNING:  * Debugger is active!
+2021-07-15 14:40:12,164 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 14:40:12,202 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 14:44:26,649 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\__init__.py', reloading
+2021-07-15 14:44:26,701 INFO:  * Restarting with stat
+2021-07-15 14:44:27,397 INFO: Blog startup
+2021-07-15 14:44:27,474 WARNING:  * Debugger is active!
+2021-07-15 14:44:27,478 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 14:44:27,518 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 14:44:35,892 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\__init__.py', reloading
+2021-07-15 14:44:35,965 INFO:  * Restarting with stat
+2021-07-15 14:44:36,641 INFO: Blog startup
+2021-07-15 14:44:36,720 WARNING:  * Debugger is active!
+2021-07-15 14:44:36,724 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 14:44:36,764 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 14:59:10,371 INFO: Blog startup
+2021-07-15 14:59:10,473 INFO:  * Restarting with stat
+2021-07-15 14:59:11,152 INFO: Blog startup
+2021-07-15 14:59:11,231 WARNING:  * Debugger is active!
+2021-07-15 14:59:11,235 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 14:59:11,275 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:08:28,954 INFO: Blog startup
+2021-07-15 15:08:29,047 INFO:  * Restarting with stat
+2021-07-15 15:08:29,787 INFO: Blog startup
+2021-07-15 15:08:29,872 WARNING:  * Debugger is active!
+2021-07-15 15:08:29,877 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 15:08:29,919 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:19:01,121 INFO: 127.0.0.1 - - [15/Jul/2021 15:19:01] "GET /home HTTP/1.1" 200 -
+2021-07-15 15:19:01,144 INFO: 127.0.0.1 - - [15/Jul/2021 15:19:01] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
+2021-07-15 15:32:03,717 INFO: Blog startup
+2021-07-15 15:32:03,795 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:32:53,093 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\config.py', reloading
+2021-07-15 15:32:53,154 INFO:  * Restarting with stat
+2021-07-15 15:32:53,899 INFO: Blog startup
+2021-07-15 15:32:53,983 WARNING:  * Debugger is active!
+2021-07-15 15:32:53,987 INFO:  * Debugger PIN: 101-235-626
+2021-07-15 15:32:54,030 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:40:56,837 INFO: Blog startup
+2021-07-15 15:40:56,921 INFO:  * Restarting with stat
+2021-07-15 15:40:57,737 INFO: Blog startup
+2021-07-15 15:40:57,919 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:44:25,678 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\config.py', reloading
+2021-07-15 15:44:25,741 INFO:  * Restarting with stat
+2021-07-15 15:44:26,636 INFO: Blog startup
+2021-07-15 15:44:26,764 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:50:20,074 INFO: Blog startup
+2021-07-15 15:50:20,152 INFO:  * Restarting with stat
+2021-07-15 15:50:20,967 INFO: Blog startup
+2021-07-15 15:50:21,094 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:50:53,001 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\config.py', reloading
+2021-07-15 15:50:53,066 INFO:  * Restarting with stat
+2021-07-15 15:50:53,915 INFO: Blog startup
+2021-07-15 15:50:54,025 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:51:05,781 INFO: Blog startup
+2021-07-15 15:51:05,863 INFO:  * Restarting with stat
+2021-07-15 15:51:06,679 INFO: Blog startup
+2021-07-15 15:51:06,792 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:57:34,678 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\config.py', reloading
+2021-07-15 15:57:34,740 INFO:  * Restarting with stat
+2021-07-15 15:57:35,665 INFO: Blog startup
+2021-07-15 15:57:35,790 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 15:57:41,356 INFO: Blog startup
+2021-07-15 15:57:41,436 INFO:  * Restarting with stat
+2021-07-15 15:57:42,250 INFO: Blog startup
+2021-07-15 15:57:42,371 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 16:02:22,342 INFO: Blog startup
+2021-07-15 16:02:22,420 INFO:  * Restarting with stat
+2021-07-15 16:02:23,239 INFO: Blog startup
+2021-07-15 16:02:23,351 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 16:02:33,044 INFO: 127.0.0.1 - - [15/Jul/2021 16:02:33] "GET /login HTTP/1.1" 200 -
+2021-07-15 16:02:33,065 INFO: 127.0.0.1 - - [15/Jul/2021 16:02:33] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
+2021-07-15 16:03:43,397 INFO:  * Detected change in 'C:\\Users\\sriva\\Documents\\projects_alok\\Flask\\Flask-Blog\\blog\\__init__.py', reloading
+2021-07-15 16:03:43,458 INFO:  * Restarting with stat
+2021-07-15 16:03:44,507 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 16:03:51,925 INFO: 127.0.0.1 - - [15/Jul/2021 16:03:51] "GET /register HTTP/1.1" 200 -
+2021-07-15 16:03:51,947 INFO: 127.0.0.1 - - [15/Jul/2021 16:03:51] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
+2021-07-15 16:04:53,420 INFO:  * Restarting with stat
+2021-07-15 16:04:54,384 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 16:05:00,912 INFO: 127.0.0.1 - - [15/Jul/2021 16:05:00] "GET /login HTTP/1.1" 200 -
+2021-07-15 16:05:00,942 INFO: 127.0.0.1 - - [15/Jul/2021 16:05:00] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
+2021-07-15 16:06:36,026 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 16:06:53,617 INFO: 127.0.0.1 - - [15/Jul/2021 16:06:53] "GET /register HTTP/1.1" 200 -
+2021-07-15 16:06:53,641 INFO: 127.0.0.1 - - [15/Jul/2021 16:06:53] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
+2021-07-15 16:07:15,945 INFO: 127.0.0.1 - - [15/Jul/2021 16:07:15] "GET /login HTTP/1.1" 200 -
+2021-07-15 16:07:16,243 INFO: 127.0.0.1 - - [15/Jul/2021 16:07:16] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
+2021-07-15 16:08:10,276 INFO: Blog startup
+2021-07-15 16:08:10,357 INFO:  * Restarting with stat
+2021-07-15 16:08:11,164 INFO: Blog startup
+2021-07-15 16:08:11,275 INFO:  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2021-07-15 16:08:22,872 INFO: 127.0.0.1 - - [15/Jul/2021 16:08:22] "GET /login HTTP/1.1" 200 -
+2021-07-15 16:08:22,893 INFO: 127.0.0.1 - - [15/Jul/2021 16:08:22] "[36mGET /static/main.css HTTP/1.1[0m" 304 -
