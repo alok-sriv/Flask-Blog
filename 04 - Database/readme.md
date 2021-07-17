@@ -40,9 +40,14 @@ CREATE TABLE `posts` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `date_posted` timestamp NOT NULL DEFAULT current_timestamp(),
-  `author` varchar(100) NOT NULL,
   `content` text NOT NULL,
-  `user_id` int(11) NOT NULL 
+  `author` varchar(30) NOT NULL
+  
+) ;
+
+ALTER TABLE `posts` ADD PRIMARY KEY (`id`);
+ALTER TABLE `posts` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `posts` ADD CONSTRAINT FK_Authr  ADD FOREIGN KEY (`author`) REFERENCES `users`(username);
   
 ) ;
 
