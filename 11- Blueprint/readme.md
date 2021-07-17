@@ -31,3 +31,5 @@ app.register_blueprint(main)
 10. replace app import with >> from flask import current_app
 
 need to update errorhandler is a method inherited from Flask, not Blueprint. If you are using Blueprint, the equivalent is app_errorhandler 
+
+https://exploreflask.com/en/latest/blueprints.html#what-is-a-blueprint
