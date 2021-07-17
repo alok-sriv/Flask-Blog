@@ -1,5 +1,4 @@
 **Setup Environment**
-
 **1. Install Python and check for version<br />**
 ```
 python --version
