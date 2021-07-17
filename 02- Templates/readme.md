@@ -10,7 +10,6 @@ def home():
     user = {'username': 'Alok'}
     return ''' <h1>Home Page,Hi '''+ user['username'] +''' !</h1>'''
 
-
 @app.route("/about")
 def about():
     return '''<h1>About Page</h1>'''
