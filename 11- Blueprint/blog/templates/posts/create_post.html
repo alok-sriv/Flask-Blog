@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <h1>Create a New Post </h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">{{ legend }}</legend>
+        <p>
+            {{ form.title.label }}<br>
+            {{ form.title(class="form-control") }}
+            {% for error in form.title.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.content.label }}<br>
+            {{ form.content(class="form-control") }}
+            {% for error in form.content.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </p>
+        </fieldset>
+        <p>{{ form.submit(class="btn btn-primary btn-sm mt-1 mb-1") }}</p>
+        <a class="btn btn-primary btn-sm mt-1 mb-1" style="float: right;" href="{{ url_for('main.home')}}">Back to Home</a>
+     
+    </form>
+{% endblock %}
