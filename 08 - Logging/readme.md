@@ -92,3 +92,21 @@ FLASK_ENV=development
 **Start Application**</br>
 1. Enable Virtual Environment
 2. flask run
+
+
+**Error**
+After running my application for some time, I encountered following error 
+```
+PermissionError: [WinError 32] The process cannot access the file because it is being used by another process: 'Flask-Blog\\logs\\blog.log' -> 'Flask-Blog\\logs\\blog.log.1'
+```
+When using the Flask integrated log logging, when using RotatingFileHandler for log setting, the problem occurs when the file size exceeds the setting.
+
+**Resolution:**
+```
+Step 1: pip install concurrent-log-handler
+Step 2: update __init__.py 
+1. from logging.handlers import RotatingFileHandler  >> from concurrent_log_handler import ConcurrentRotatingFileHandler
+2. file_handler = RotatingFileHandler('logs/blog.log', maxBytes=10240,backupCount=10) >> file_handler = ConcurrentRotatingFileHandler('logs/blog.log', maxBytes=10240,backupCount=10)
+```
+I have fixed this error chapter 11- Blueprint
+
