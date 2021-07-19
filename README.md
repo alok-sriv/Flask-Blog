@@ -1,5 +1,24 @@
 # Flask-Blog
-Repository to learn Flask by creating a blog with lots of functionalities
+Repository to learn Flask by creating a blog with lots of functionalities like 
+1. Login
+2. Registration
+3. Update Account Details - Allowed only after Login
+4. Create Posts - Alloed Only after Login
+5. Update/Delete Posts - Allowed only after Login
+6. Custom Error Pages
+7. Logging
+8. Change Profile Photo
+9. Use of Bootstrap
+10. Sort Post based on Author
+
+Some of Pages will look like :
+
+![Home](https://user-images.githubusercontent.com/70486168/126093318-32a7c733-aa3c-4c1f-80eb-ffcd0adbc46d.JPG)
+![Account_Update](https://user-images.githubusercontent.com/70486168/126093323-3c91b218-0d74-4618-9257-0b3936c34547.JPG)
+![create Post](https://user-images.githubusercontent.com/70486168/126093328-df4f5746-95d3-48d1-bdb5-24114da12158.JPG)
+![Login](https://user-images.githubusercontent.com/70486168/126093332-bf291e7c-9b04-42c5-b2b1-4232a07d0c8a.JPG)
+![Register](https://user-images.githubusercontent.com/70486168/126093336-b3c39d05-d0e7-4124-9af0-0603cd1e0007.JPG)
+![Post](https://user-images.githubusercontent.com/70486168/126093382-01cf1f7e-f630-4b6d-8fd4-a702ccb48ab9.JPG)
 
 
 # Installation
