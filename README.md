@@ -24,4 +24,5 @@ Repository to learn Flask by creating a blog with lots of functionalities
 # Running the app
 1. Download zip of repo >> extract all files >> navigate to "Blueprint" folder >> Copy all the files/folders from this folder into your directory
 2. Activate your virtual environment : env\Scripts\activate [Windows]
-3. flask run
+3. Start your database from XAMPP Control Panel
+4. flask run
